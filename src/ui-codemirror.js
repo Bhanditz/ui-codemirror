@@ -5,7 +5,7 @@
  */
 angular.module('ui.codemirror', [])
   .constant('uiCodemirrorConfig', {})
-  .directive('uiCodemirror', ['$timeout', 'uiCodemirrorConfig', uiCodemirrorDirective]);
+  .directive('uiCodemirror', uiCodemirrorDirective);
 
 /**
  * @ngInject
@@ -43,7 +43,7 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
       scope
     );
 
-    configNgModelLink(codemirror, ngModel, iAttrs.uiCodemirrorChangeModelOnBlur, scope);
+    configNgModelLink(codemirror, ngModel, iAttrs.uiCodemirrorChangeOnBlur, scope);
 
     configUiRefreshAttribute(codemirror, iAttrs.uiRefresh, scope);
 
@@ -99,7 +99,7 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
     }
   }
 
-  function configNgModelLink(codemirror, ngModel, uiCodemirrorChangeModelOnBlur, scope) {
+  function configNgModelLink(codemirror, ngModel, uiCodemirrorChangeOnBlur, scope) {
     if (!ngModel) { return; }
     // CodeMirror expects a string, so make sure it gets one.
     // This does not change the model.
@@ -124,10 +124,11 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
 
 
     // Keep the ngModel in sync with changes from CodeMirror
-    codemirror.on((uiCodemirrorChangeModelOnBlur ? 'blur': 'change'), function(instance) {
+    codemirror.on((uiCodemirrorChangeOnBlur ? 'blur': 'change'), function(instance) {
       var newValue = instance.getValue();
       if (newValue !== ngModel.$viewValue) {
-        scope.$applyAsync(function() {
+        // scope.$applyAsync(function() {
+        scope.$apply(function() {
           ngModel.$setViewValue(newValue);
         });
       }
@@ -148,3 +149,4 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
   }
 
 }
+uiCodemirrorDirective.$inject = ['$timeout', 'uiCodemirrorConfig'];

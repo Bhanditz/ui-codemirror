@@ -94,15 +94,12 @@ $scope.isSomething = true;
 
 Note: the comparison operator between the old and the new value is "!=="
 
-### ui-codemirror-change-model-on-blur directive
+### ui-codemirror-change-on-blur directive
 
-If you apply the change-model-on-blur directive to an element then any change to the editor content is pushed to the model on a blur event(as opposed to
-every key press).
-
-_The ui-refresh directive expects a scope variable that can be any thing...._
+If you apply the change-on-blur directive to an element then any change to the editor content is pushed to the model on a blur event(as opposed to every key press).
 
 ```html
-<div ui-codemirror ng-model="x" ui-codemirror-change-model-on-blur ></div>
+<div ui-codemirror ng-model="x" ui-codemirror-change-on-blur=true ></div>
 ```
 
 ### CodeMirror instance direct access

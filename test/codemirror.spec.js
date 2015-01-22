@@ -274,6 +274,32 @@ describe('uiCodemirror', function() {
 
     });
 
+    it('when the IDE changes should update the model on blur', function() {
+      var element = $compile('<div ui-codemirror ng-model="foo" ui-codemirror-change-model-on-blur=true ></div>')(scope);
+      var ctrl = element.controller('ngModel');
+
+      expect(ctrl.$pristine).toBe(true);
+      expect(ctrl.$valid).toBe(true);
+
+      var value = 'baz';
+      var codeMirror = element.children()[0];
+      codeMirror.focus();
+      codemirror.setValue(value);
+
+      scope.$apply();
+      //expect(scope.foo).not.toBe(value);
+      //expect(ctrl.$dirty).not.toBe(true);
+
+      //codeMirror.blur();
+      //scope.$apply();
+      //expect(scope.foo).toBe(value);
+
+      //expect(ctrl.$valid).toBe(true);
+      //expect(ctrl.$dirty).toBe(true);
+
+    });
+
+
     it('when the model changes should update the IDE', function() {
       var element = $compile('<div ui-codemirror ng-model="foo"></div>')(scope);
       var ctrl = element.controller('ngModel');
