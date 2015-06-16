@@ -127,8 +127,7 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
     codemirror.on((uiCodemirrorChangeOnBlur ? 'blur': 'change'), function(instance) {
       var newValue = instance.getValue();
       if (newValue !== ngModel.$viewValue) {
-        // scope.$applyAsync(function() {
-        scope.$apply(function() {
+        scope.$applyAsync(function() {
           ngModel.$setViewValue(newValue);
         });
       }
